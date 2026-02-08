@@ -48,8 +48,8 @@ parser = PydanticOutputParser(pydantic_object=TravelPlan)
 prompt = PromptTemplate(
     template="""
     You are a travel planner. Your task is to create a travel plan for a trip based on the user's preferences. 
-    Take into account the user's budget: {budget} CAD, trip length: {duration} days, travel month: {month}, 
-    and interests/hobbies: {interests}. 
+    Take into account the user's budget: {budget} CAD, trip length: {duration} days, travel date range: {date_range}, 
+    and interests/hobbies: {interests}.  As well, follow the user's cultural preferences: {cultural_preferences}.
 
     When generating the travel plan, ensure that the total estimated cost of the trip including transportation, accommodation, 
     and activities does not exceed the user budget of: {budget} CAD. 
@@ -58,7 +58,7 @@ prompt = PromptTemplate(
 
     {format_instructions}
     """,
-    input_variables=["budget", "duration", "month", "interests", "relevant_docs"],
+    input_variables=["budget", "duration", "date_range", "interests", "cultural_preferences", "relevant_docs"],
     partial_variables={"format_instructions": parser.get_format_instructions()}
 )
 
@@ -72,15 +72,17 @@ qa_chain = RetrievalQA.from_chain_type(
 user_inputs = {
   "budget": 2000,
   "duration": 10,
-  "month": "June",
-  "interests": ["hiking", "food", "culture"] 
+  "date_range": "June 1 - June 30",
+  "interests": ["hiking", "food", "culture"],
+  "cultural_preferences": "I prefer destinations with rich history and culture, and I enjoy trying local cuisines. I also like outdoor activities such as hiking and exploring nature." 
 }
 
 interests = user_inputs["interests"]
+cultural_preference = user_inputs["cultural_preferences"]
 relevant_docs = []
 
 for interest in interests:
-   query = f"Tell me about {interest} in the context of travelling to destinations in the vectorstore"
+   query = f"Tell me about {interest} in the context of travelling to destinations in the vectorstore. Also try your best to provide results that align with the user's cultural preferences: {cultural_preference}."
    result = qa_chain.invoke({"query": query})
    relevant_docs.append(result["result"])
 
