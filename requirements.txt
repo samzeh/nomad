@@ -1,0 +1,15 @@
+faiss-cpu==1.13.2
+google-auth==2.48.0
+google-genai==1.62.0
+langchain==1.2.9
+langchain-classic==1.0.1
+langchain-community==0.4.1
+langchain-core==1.2.9
+langchain-google-genai==4.2.0
+langchain-text-splitters==1.1.0
+langchain-embeddings==0.0.1
+huggingface_hub==1.4.1
+sentence-transformers==5.2.2
+pydantic==2.12.5
+python-dotenv==1.2.1
+requests==2.32.5
