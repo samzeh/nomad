@@ -49,7 +49,7 @@ prompt = PromptTemplate(
     template="""
     You are a travel planner. Your task is to create a travel plan for a trip based on the user's preferences. 
     Take into account the user's budget: {budget} CAD, trip length: {duration} days, travel date range: {date_range}, 
-    and interests/hobbies: {interests}.  As well, follow the user's cultural preferences: {cultural_preferences}.
+    and interests/hobbies: {interests}.
 
     When generating the travel plan, ensure that the total estimated cost of the trip including transportation, accommodation, 
     and activities does not exceed the user budget of: {budget} CAD. 
@@ -58,54 +58,67 @@ prompt = PromptTemplate(
 
     {format_instructions}
     """,
-    input_variables=["budget", "duration", "date_range", "interests", "cultural_preferences", "relevant_docs"],
+    input_variables=["budget", "duration", "date_range", "interests", "relevant_docs"],
     partial_variables={"format_instructions": parser.get_format_instructions()}
 )
 
-qa_chain = RetrievalQA.from_chain_type(
-    llm=llm,
-    chain_type="stuff",
-    retriever=vectorstore.as_retriever(search_kwargs={"k": 5}),
-    return_source_documents=True,
-)
+def generate_travel_plan(user_inputs: dict) -> TravelPlan:
+    """
+    Example user input:
 
-user_inputs = {
-  "budget": 2000,
-  "duration": 10,
-  "date_range": "June 1 - June 30",
-  "interests": ["hiking", "food", "culture"],
-  "cultural_preferences": "I prefer destinations with rich history and culture, and I enjoy trying local cuisines. I also like outdoor activities such as hiking and exploring nature." 
-}
+    user_inputs = {
+      "budget": 2000,
+      "duration": 10,
+      "date_range": "June 1 - June 30",
+      "interests": ["hiking", "food", "culture"],
+      "cultural_preferences": "I prefer destinations with rich history and culture, and I enjoy trying local cuisines. I also like outdoor activities such as hiking and exploring nature." 
+    }
+    """
 
-interests = user_inputs["interests"]
-cultural_preference = user_inputs["cultural_preferences"]
-relevant_docs = []
+    qa_chain = RetrievalQA.from_chain_type(
+      llm=llm,
+      chain_type="stuff",
+      retriever=vectorstore.as_retriever(search_kwargs={"k": 5}),
+      return_source_documents=True,
+    )
 
-for interest in interests:
-   query = f"Tell me about {interest} in the context of travelling to destinations in the vectorstore. Also try your best to provide results that align with the user's cultural preferences: {cultural_preference}."
-   result = qa_chain.invoke({"query": query})
-   relevant_docs.append(result["result"])
+    relevant_docs = []
+
+    cultural_preference = user_inputs["cultural_preferences"]
+
+    for interest in user_inputs["interests"]:
+      query = f"Tell me about {interest} in the context of travelling to destinations in the vectorstore. Also try your best to provide results that align with the user's cultural preferences: {cultural_preference}."
+      result = qa_chain.invoke({"query": query})
+      relevant_docs.append(result["result"])
+
+    
+    response = llm.invoke(prompt.format(
+      budget = 2000,
+      duration = 10,
+      month = "June",
+      interests = ["hiking", "food", "culture"],
+      relevant_docs = relevant_docs
+    ))
+
+    travel_plan = parser.parse(response.content)
+
+    return travel_plan
 
 
-response = llm.invoke(prompt.format(
-  budget = 2000,
-  duration = 10,
-  month = "June",
-  interests = ["hiking", "food", "culture"],
-  relevant_docs = relevant_docs
-))
 
-parsed_response = parser.parse(response.content)
-print("structured response:")
-print(f"destination: {parsed_response.destination}")
-print(f"reasoning: {parsed_response.reasoning}")
-print(f"duration: {parsed_response.duration} days")
-print(f"total_budget: {parsed_response.total_budget} CAD")
-print(f"estimated_cost: {parsed_response.estimated_cost} CAD")
-print("itinerary:")
-for day in parsed_response.itinerary:
-  print(f"  Day {day.day}:")
-  print(f"    activities: {', '.join(day.activities)}")
-  print(f"    daily_budget: {day.daily_budget} CAD")  
+
+
+
+# print("structured response:")
+# print(f"destination: {parsed_response.destination}")
+# print(f"reasoning: {parsed_response.reasoning}")
+# print(f"duration: {parsed_response.duration} days")
+# print(f"total_budget: {parsed_response.total_budget} CAD")
+# print(f"estimated_cost: {parsed_response.estimated_cost} CAD")
+# print("itinerary:")
+# for day in parsed_response.itinerary:
+#   print(f"  Day {day.day}:")
+#   print(f"    activities: {', '.join(day.activities)}")
+#   print(f"    daily_budget: {day.daily_budget} CAD")  
 
 
