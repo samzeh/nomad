@@ -40,13 +40,15 @@ body, html {
   z-index: -2;
 }
 
-.bg-overlay {
+/* remove background overlay for now */
+
+/* .bg-overlay {
   position: fixed;
   inset: 0;
   background: rgba(65, 9, 54, 0.25);
   backdrop-filter: blur(2px);       
   z-index: -1;
-}
+} */
 
 h1 {
   font-size: 3.2em;

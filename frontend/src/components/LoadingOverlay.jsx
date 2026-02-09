@@ -24,7 +24,7 @@ export default function LoadingOverlay() {
       </video>
 
       <div className="loading-text">
-        <h2>creating adventures...</h2>
+        <h2>crafting adventures...</h2>
         <img src="/icon.gif" alt="Nomad logo" />
         <p>{Math.floor(progress)}%</p>
       </div>

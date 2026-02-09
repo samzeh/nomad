@@ -81,3 +81,19 @@ input[type="number"] {
   -moz-appearance: textfield; /* Firefox */
 }
 
+
+.submit-button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  border: none;
+  background: rgba(255, 227, 88);
+  font-weight: bold;
+  cursor: pointer;
+  color: rgb(130, 103, 7);
+  transition: background-color 0.4s ease;
+
+}
+
+.submit-button:hover {
+  background: rgb(249, 215, 46);
+}

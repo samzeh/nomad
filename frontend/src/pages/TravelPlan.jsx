@@ -1,26 +1,31 @@
 import { useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import LoadingOverlay from "../components/LoadingOverlay.jsx";
+import "./TravelPlan.css";
 
 function TravelPlan() {
   const { state } = useLocation();
   const { travelPlan, formData } = state || {};
-  const [plan, setPlan] = useState(travelPlan);
+
+  const [plan, setPlan] = useState(travelPlan || null);
+  const [form, setForm] = useState(formData || JSON.parse(localStorage.getItem("formData")));
   const [loading, setLoading] = useState(false);
 
-  if (!plan) return <p>No travel plan found. Go back and submit the form.</p>;
+  useEffect(() => {
+    if (plan) localStorage.setItem("travelPlan", JSON.stringify(plan));
+  }, [plan]);
+
+  if (!form) return <p>No form data found. Go back and submit the form.</p>;
 
   const handleGenerateNew = async () => {
-    if (!formData) return;
-
-    setLoading(true); 
+    setLoading(true);
     const startTime = Date.now();
 
     try {
       const response = await fetch("http://127.0.0.1:8000/travel-plan", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(form),
       });
 
       if (!response.ok) throw new Error("Network response was not ok");
@@ -32,51 +37,74 @@ function TravelPlan() {
         await new Promise((res) => setTimeout(res, 500 - elapsed));
       }
 
-      setPlan(newPlan); 
+      setPlan(newPlan);
     } catch (err) {
-      console.error("Error fetching new travel plan:", err);
+      console.error("Error generating new travel plan:", err);
       alert("Failed to generate new plan. Try again.");
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
+  if (!plan) return <p>Loading your travel plan…</p>;
+
   return (
-    <div style={{ padding: "2rem", position: "relative" }}>
-      {/* Overlay while loading */}
+    <div>
       {loading && <LoadingOverlay message="Generating your travel plan… ✈️" />}
 
-      {/* Travel plan info */}
-      <h1>{plan.destination}</h1>
-      <p>{plan.reasoning}</p>
-      <p>Duration: {plan.duration} days</p>
-      <p>Total Budget: {plan.total_budget} CAD</p>
-      <p>Estimated Cost: {plan.estimated_cost} CAD</p>
+      <div className="glassPanel">
+        <div className="info-container">
+          <h2 className="title">{plan.destination}</h2>
 
-      <ul>
-        {plan.itinerary.map((day) => (
-          <li key={day.day}>
-            <strong>Day {day.day}:</strong> {day.activities.join(", ")} (Budget: {day.daily_budget} CAD)
-          </li>
-        ))}
-      </ul>
+          <div className="trip-info-box">
+            <div className="trip-info-item">
+              <h1 className="trip-info-title">Trip Dates:</h1>
+              <h2 className="trip-info-value">{plan.start_date} - {plan.end_date}</h2>
+            </div>
+            <div className="trip-info-item">
+              <h1 className="trip-info-title">Total Budget:</h1>
+              <h2 className="trip-info-value">${plan.total_budget}</h2>
+            </div>
+            <div className="trip-info-item">
+              <h1 className="trip-info-title">Estimated Costs:</h1>
+              <h2 className="trip-info-value">${plan.estimated_cost}</h2>
+            </div>
+          </div>
 
-      <button
-        onClick={handleGenerateNew}
-        style={{
-          marginTop: "2rem",
-          padding: "0.75rem 1.5rem",
-          borderRadius: "10px",
-          border: "none",
-          background: "#4caf50",
-          color: "white",
-          fontWeight: "bold",
-          cursor: "pointer",
-        }}
-        disabled={loading}
-      >
-        {loading ? "Generating…" : "Generate New Plan"}
-      </button>
+          <p className="description-text">{plan.reasoning}</p>
+
+          <div className="activity-carousel">
+            {plan.itinerary.map((day) => (
+              <div className="activity-card" key={day.day}>
+                <h3 className="activity-title">Day {day.day}</h3>
+                <ul className="activity-description-list">
+                  {day.activities.map((activity, index) => (
+                    <li key={index}>{activity}</li>
+                  ))}
+                </ul>
+                <p className="activity-budget">Budget: {day.daily_budget} CAD</p>
+              </div>
+            ))}
+          </div>
+
+          <button
+            onClick={handleGenerateNew}
+            style={{
+              marginTop: "2rem",
+              padding: "0.75rem 1.5rem",
+              borderRadius: "10px",
+              border: "none",
+              background: "#4caf50",
+              color: "white",
+              fontWeight: "bold",
+              cursor: "pointer",
+            }}
+            disabled={loading}
+          >
+            {loading ? "Generating…" : "Generate New Plan"}
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

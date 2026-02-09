@@ -59,6 +59,8 @@ class DayItinerary(BaseModel):
 class TravelPlan(BaseModel):
   destination: str = Field(description="Travel destination: City, Country")
   reasoning: str = Field(description="Reason for choosing this destination. 1-2 setences")
+  start_date: str = Field(description="Start date of the trip in ISO format: YYYY-MM-DD")
+  end_date: str = Field(description="End date of the trip in ISO format: YYYY-MM-DD")
   duration: int = Field(description="Duration of the trip in days")
   total_budget: int = Field(description = "Total budget for the trip")
   estimated_cost: int = Field(description="Estimated total cost of the trip based on the activities planned, hotel accomadations, and transport costs")

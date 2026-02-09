@@ -11,7 +11,7 @@ function FormPage() {
   const [budget, setBudget] = useState("");
   const [interests, setInterests] = useState("");
   const [culturalPreferences, setCulturalPreferences] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,6 +37,10 @@ function FormPage() {
       if (!response.ok) throw new Error("Network response was not ok");
 
       const travelPlan = await response.json();
+
+      localStorage.setItem("travelPlan", JSON.stringify(travelPlan));
+      localStorage.setItem("formData", JSON.stringify(requestBody));
+      
       navigate("/plan", { state: { travelPlan } });
     } catch (err) {
       console.error("Error fetching travel plan:", err);
@@ -148,14 +152,7 @@ function FormPage() {
 
           <button
             type="submit"
-            style={{
-              padding: "0.75rem 1.5rem",
-              borderRadius: "10px",
-              border: "none",
-              background: "rgba(255, 227, 88, 0.6)",
-              fontWeight: "bold",
-              cursor: "pointer",
-            }}
+            className = "submit-button"
           >
             Submit
           </button>

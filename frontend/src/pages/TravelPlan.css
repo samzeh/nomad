@@ -1,0 +1,152 @@
+.bg {
+  position: "absolute";
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.glassPanel {
+  position: fixed;
+  width: 85vw;
+  height: 80vh;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow-x: hidden;
+  overflow-y: scroll;
+  
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%); 
+  
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 28px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px;
+  color: white;
+  z-index: 10;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: 32px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+.text {
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.info-container {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  width: 100%;
+}
+
+.title {
+  font-size: 3.5rem;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+.description-text {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+
+}
+
+.activity-carousel {
+  display: flex;
+  flex-direction: row;
+  border: 2px solid red;
+  gap: 30px;
+  overflow-x: auto; 
+  padding-bottom: 20px;
+  margin-top: 20px;
+}
+
+.activity-card {
+  width: 350px;   
+  height: 250px; 
+  padding: 15px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; 
+  align-items: flex-start;     
+  overflow-x: hidden; 
+  overflow-y: auto;
+  flex-shrink: 0; 
+
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%); 
+  
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 28px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+
+
+}
+
+.trip-info-box {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+}
+
+.trip-info-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.trip-info-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+
+.trip-info-value {
+  font-size: 1.5rem;
+  font-weight: normal;
+}
+
+.activity-title {
+  margin-top: 10px;
+}
+
+.activity-description-list {
+padding-left: 1rem;
+margin: 0.5rem 0;
+list-style-type: disc; 
+margin: 0;          
+padding-left: 1rem;
+}
+
+.activity-budget {
+margin-top: auto; 
+font-weight: bold;
+}
+
+.activity-card h3 {
+margin: 0;
+margin-bottom: 0.5rem; 
+}
