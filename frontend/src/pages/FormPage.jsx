@@ -78,12 +78,7 @@ function FormPage() {
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
                 required
-                style={{
-                  padding: "0.5rem",
-                  borderRadius: "8px",
-                  border: "1px solid #ccc",
-                  flex: 1,
-                }}
+                className = "input-field"
               />
               <span style={{ alignSelf: "center" }}>to</span>
               <input
@@ -91,12 +86,7 @@ function FormPage() {
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
                 required
-                style={{
-                  padding: "0.5rem",
-                  borderRadius: "8px",
-                  border: "1px solid #ccc",
-                  flex: 1,
-                }}
+                className = "input-field"
               />
             </div>
           </label>
@@ -106,31 +96,23 @@ function FormPage() {
             <input
               type="text"
               value={home_location}
+              placeholder="Toronto, Ontario"
               onChange={(e) => setHomeLocation(e.target.value)}
               required
-              style={{
-                padding: "0.5rem",
-                borderRadius: "8px",
-                border: "none",
-                width: "100%",
-              }}
+              className = "input-field"
             />
           </label>
-          
+
           <label>
             Budget (CAD):
             <input
               type="number"
               value={budget}
+              placeholder="1000"
               onChange={(e) => setBudget(e.target.value)}
               min={0}
               required
-              style={{
-                padding: "0.5rem",
-                borderRadius: "8px",
-                border: "none",
-                width: "100%",
-              }}
+              className = "input-field"
             />
           </label>
 
@@ -141,13 +123,8 @@ function FormPage() {
               value={interests}
               onChange={(e) => setInterests(e.target.value)}
               required
-              placeholder="e.g., hiking, food, art"
-              style={{
-                padding: "0.5rem",
-                borderRadius: "8px",
-                border: "1px solid #ccc",
-                width: "100%",
-              }}
+              placeholder="Hiking, food, art"
+              className = "input-field"
             />
           </label>
 
@@ -158,13 +135,8 @@ function FormPage() {
               value={culturalPreferences}
               onChange={(e) => setCulturalPreferences(e.target.value)}
               required
-              placeholder="e.g., museums, local cuisine"
-              style={{
-                padding: "0.5rem",
-                borderRadius: "8px",
-                border: "1px solid #ccc",
-                width: "100%",
-              }}
+              placeholder= "Chinese cuisine, historical sites"
+              className = "input-field"
             />
           </label>
 

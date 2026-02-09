@@ -11,10 +11,11 @@
 
 .logo-container h1 {
   font-size: 10rem;
-  font-family: 'Nova Mono';
+  font-family: 'Neucha';
   letter-spacing: -1rem;
   color: rgba(255, 255, 255);
   margin: 0;
+  margin-top: 45px;
 }
 
 .form-container {
@@ -44,20 +45,30 @@
 }
 
 .form-container h1 {
-  font-size: 4rem;
+  font-size: 3rem;
   margin-top: 0;
   margin-bottom: 1rem;
+  font-family: 'krub';
 }
 .form-container form{
   padding: 0;
 }
 
 .form-container label{
-  font-size: 1.75rem;
-  font-weight: bold;
+  font-size: 1.5rem;
+  font-weight: 550;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  font-family: 'krub';
+}
+
+.input-field {
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-family: 'krub';
+  width: 100%;
 }
 
 .form-container input,

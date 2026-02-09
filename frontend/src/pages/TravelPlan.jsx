@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import LoadingOverlay from "../components/LoadingOverlay.jsx";
-import "./TravelPlan.css";
+import "../TravelPlan.css";
 
 function TravelPlan() {
   const { state } = useLocation();
