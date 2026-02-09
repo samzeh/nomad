@@ -2,7 +2,11 @@
   position: fixed;
   left: 0;
   bottom: 0;
-  margin: 0 0 4rem 4rem;
+  margin: 0 0 1rem 4rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
 }
 
 .logo-container h1 {
@@ -13,7 +17,6 @@
   margin: 0;
 }
 
-
 .form-container {
   position: fixed;
   right: 4rem;
@@ -22,13 +25,17 @@
   width: 35vw;
   height: 80vh;
 
-  background: rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(10px);
+  /* Glass effect */
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px) saturate(180%);
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
+  
+  /* Border and shadows */
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 35px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); 
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  
   padding: 16px;
-
   margin-left: auto;
   margin-right: 0;
 }
-
