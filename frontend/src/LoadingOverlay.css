@@ -1,0 +1,21 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-family: sans-serif;
+  background: transparent;
+}
+
+.loading-text {
+  z-index: 1;
+  text-align: center;
+}
+
+.loading-text h2, p{
+  margin: 0;
+}

@@ -11,7 +11,7 @@ function FormPage() {
   const [budget, setBudget] = useState("");
   const [interests, setInterests] = useState("");
   const [culturalPreferences, setCulturalPreferences] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -53,20 +53,20 @@ function FormPage() {
       </div>
 
       <div className="form-container">
+        <h1>Where to?</h1>
+
         <form
           onSubmit={handleSubmit}
           style={{
             display: "flex",
             flexDirection: "column",
             gap: "1.5rem",
-            padding: "2rem",
             height: "100%",
-            justifyContent: "center",
           }}
         >
           <label>
             Travel Dates:
-            <div style={{ display: "flex", gap: "1rem", marginTop: "0.5rem" }}>
+            <div style={{ display: "flex", gap: "1rem" }}>
               <input
                 type="date"
                 value={startDate}
@@ -104,10 +104,9 @@ function FormPage() {
               min={0}
               required
               style={{
-                marginTop: "0.5rem",
                 padding: "0.5rem",
                 borderRadius: "8px",
-                border: "1px solid #ccc",
+                border: "none",
                 width: "100%",
               }}
             />
@@ -122,7 +121,6 @@ function FormPage() {
               required
               placeholder="e.g., hiking, food, art"
               style={{
-                marginTop: "0.5rem",
                 padding: "0.5rem",
                 borderRadius: "8px",
                 border: "1px solid #ccc",
@@ -140,7 +138,6 @@ function FormPage() {
               required
               placeholder="e.g., museums, local cuisine"
               style={{
-                marginTop: "0.5rem",
                 padding: "0.5rem",
                 borderRadius: "8px",
                 border: "1px solid #ccc",
@@ -152,11 +149,10 @@ function FormPage() {
           <button
             type="submit"
             style={{
-              marginTop: "1rem",
               padding: "0.75rem 1.5rem",
               borderRadius: "10px",
               border: "none",
-              background: "rgba(255, 255, 255, 0.6)",
+              background: "rgba(255, 227, 88, 0.6)",
               fontWeight: "bold",
               cursor: "pointer",
             }}

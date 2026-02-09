@@ -1,7 +1,8 @@
-// components/LoadingOverlay.jsx
 import { useEffect, useState } from "react";
+import "../LoadingOverlay.css";
 
-export default function LoadingOverlay({ message = "Generating your travel plan… ✈️" }) {
+
+export default function LoadingOverlay() {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -17,46 +18,16 @@ export default function LoadingOverlay({ message = "Generating your travel plan�
   }, []);
 
   return (
-    <div style={styles.overlay}>
-      <h2>{message}</h2>
-      <p>Please wait</p>
-      <div style={styles.progressBarContainer}>
-        <div style={{ ...styles.progressBarFill, width: `${progress}%` }} />
+    <div className="overlay">
+      <video className="loading-video" autoPlay muted loop playsInline>
+        <source src="/background.mp4" type="video/mp4" />
+      </video>
+
+      <div className="loading-text">
+        <h2>creating adventures...</h2>
+        <img src="/icon.gif" alt="Nomad logo" />
+        <p>{Math.floor(progress)}%</p>
       </div>
-      <p>{Math.floor(progress)}%</p>
     </div>
   );
 }
-
-const styles = {
-  overlay: {
-    position: "fixed",
-    top: 0,
-    left: 0,
-    width: "100vw",
-    height: "100vh",
-    backgroundColor: "rgba(0,0,0,1)",
-    color: "white",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    fontFamily: "sans-serif",
-    zIndex: 9999,
-  },
-  
-  progressBarContainer: {
-    width: "60%",
-    height: "20px",
-    backgroundColor: "rgba(255,255,255,0.3)",
-    borderRadius: "10px",
-    overflow: "hidden",
-    marginTop: "1rem",
-  },
-  progressBarFill: {
-    height: "100%",
-    backgroundColor: "#4caf50",
-    borderRadius: "10px 0 0 10px",
-    transition: "width 0.3s ease-in-out",
-  },
-};
