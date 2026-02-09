@@ -8,8 +8,9 @@ function TravelPlan() {
   const { travelPlan, formData } = state || {};
 
   const [plan, setPlan] = useState(travelPlan || null);
-  const [form, setForm] = useState(formData || JSON.parse(localStorage.getItem("formData")));
   const [loading, setLoading] = useState(false);
+
+  const form = formData || JSON.parse(localStorage.getItem("formData") || "{}");
 
   useEffect(() => {
     if (plan) localStorage.setItem("travelPlan", JSON.stringify(plan));
