@@ -89,16 +89,7 @@ function TravelPlan() {
 
           <button
             onClick={handleGenerateNew}
-            style={{
-              marginTop: "2rem",
-              padding: "0.75rem 1.5rem",
-              borderRadius: "10px",
-              border: "none",
-              background: "#4caf50",
-              color: "white",
-              fontWeight: "bold",
-              cursor: "pointer",
-            }}
+            className="generate-button"
             disabled={loading}
           >
             {loading ? "Generating…" : "Generate New Plan"}
