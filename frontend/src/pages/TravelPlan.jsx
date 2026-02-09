@@ -52,15 +52,15 @@ function TravelPlan() {
 
           <div className="trip-info-box">
             <div className="trip-info-item">
-              <h1 className="trip-info-title">Trip Dates:</h1>
+              <h1 className="trip-info-title">Trip Dates:&nbsp;</h1>
               <h2 className="trip-info-value">{plan.start_date} - {plan.end_date}</h2>
             </div>
             <div className="trip-info-item">
-              <h1 className="trip-info-title">Total Budget:</h1>
+              <h1 className="trip-info-title">Total Budget:&nbsp;</h1>
               <h2 className="trip-info-value">${plan.total_budget}</h2>
             </div>
             <div className="trip-info-item">
-              <h1 className="trip-info-title">Estimated Costs:</h1>
+              <h1 className="trip-info-title">Estimated Costs:&nbsp;</h1>
               <h2 className="trip-info-value">${plan.estimated_cost}</h2>
             </div>
           </div>
