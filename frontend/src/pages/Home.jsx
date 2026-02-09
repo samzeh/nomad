@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "../App.css";
 import LoadingOverlay from "../components/LoadingOverlay";
 
-function FormPage() {
+function Home() {
   const navigate = useNavigate();
 
   const [startDate, setStartDate] = useState("");
@@ -52,7 +52,7 @@ function FormPage() {
 
   return (
     <>
-      {loading && <LoadingOverlay message="Generating your travel plan… ✈️" />}
+      {loading && <LoadingOverlay/>}
       <div className="logo-container">
         <h1>Nomad</h1>
         <img src="/icon.gif" alt="Nomad logo" />
@@ -152,4 +152,4 @@ function FormPage() {
   );
 }
 
-export default FormPage;
+export default Home;

@@ -1,26 +1,26 @@
-import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import LoadingOverlay from "../components/LoadingOverlay.jsx";
 import "../TravelPlan.css";
 
 function TravelPlan() {
-  const { state } = useLocation();
-  const { travelPlan, formData } = state || {};
+  const savedPlan = JSON.parse(localStorage.getItem("travelPlan") || "null");
+  const savedForm = JSON.parse(localStorage.getItem("formData") || "{}");
 
-  const [plan, setPlan] = useState(travelPlan || null);
+  const [plan, setPlan] = useState(savedPlan);
   const [loading, setLoading] = useState(false);
 
-  const form = formData || JSON.parse(localStorage.getItem("formData") || "{}");
+  const form = savedForm;
 
   useEffect(() => {
     if (plan) localStorage.setItem("travelPlan", JSON.stringify(plan));
   }, [plan]);
 
-  if (!form) return <p>No form data found. Go back and submit the form.</p>;
+  if (!form || Object.keys(form).length === 0) {
+    return <Navigate to="/" replace />;
+  }
 
   const handleGenerateNew = async () => {
     setLoading(true);
-    const startTime = Date.now();
 
     try {
       const response = await fetch("http://127.0.0.1:8000/travel-plan", {
@@ -33,11 +33,6 @@ function TravelPlan() {
 
       const newPlan = await response.json();
 
-      const elapsed = Date.now() - startTime;
-      if (elapsed < 500) {
-        await new Promise((res) => setTimeout(res, 500 - elapsed));
-      }
-
       setPlan(newPlan);
     } catch (err) {
       console.error("Error generating new travel plan:", err);
@@ -47,11 +42,9 @@ function TravelPlan() {
     }
   };
 
-  if (!plan) return <p>Loading your travel plan…</p>;
-
   return (
     <div>
-      {loading && <LoadingOverlay message="Generating your travel plan… ✈️" />}
+      {loading && <LoadingOverlay/>}
 
       <div className="glassPanel">
         <div className="info-container">

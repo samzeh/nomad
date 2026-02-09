@@ -6,11 +6,10 @@ export default function LoadingOverlay() {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    // Increment progress gradually until it hits 90% (we'll wait for API to reach 100%)
     const interval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 90) return prev; // stop at 90%, wait for API
-        return prev + Math.random() * 5; // add 0-5% randomly
+        return prev + Math.random() * 5; 
       });
     }, 300);
 

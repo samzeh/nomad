@@ -1,6 +1,5 @@
-
 .bg {
-  position: "absolute";
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -11,8 +10,8 @@
 
 .glassPanel {
   position: fixed;
-  width: 85vw;
-  height: 80vh;
+  width: clamp(300px, calc(85vw - 4rem), 1400px);
+  height: clamp(500px, 80vh, 900px);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -24,36 +23,15 @@
   -webkit-backdrop-filter: blur(20px) saturate(180%); 
   
   border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 28px;
+  border-radius: clamp(16px, 3vw, 28px);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
   
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 40px;
+  justify-content: space-between;
+  padding: clamp(20px, 4vw, 40px);
   color: white;
   z-index: 10;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.title {
-  font-size: 32px;
-  margin-bottom: 20px;
-  font-weight: 600;
-  margin: 0;
-  margin-bottom: 20px;
-  font-family: 'Krub'
-}
-
-.text {
-  font-size: 16px;
-  line-height: 1.5;
-  margin: 0;
 }
 
 .info-container {
@@ -64,31 +42,62 @@
 }
 
 .title {
-  font-size: 3.5rem;
+  font-size: clamp(2rem, 5vw, 3.5rem);
   font-weight: bold;
-  margin-bottom: 0;
+  margin: 0;
+  margin-bottom: clamp(1rem, 2vw, 1.5rem);
+  font-family: 'Krub';
+}
+
+.trip-info-box {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: clamp(20px, 3vw, 40px);
+  font-family: 'Krub';
+  margin-bottom: clamp(1rem, 2vw, 1.5rem);
+}
+
+.trip-info-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.trip-info-title {
+  font-size: clamp(1rem, 1.8vw, 1.5rem);
+  font-weight: bold;
+  margin-right: 0.5rem;
+  margin: 0;
+}
+
+.trip-info-value {
+  font-size: clamp(1rem, 1.8vw, 1.5rem);
+  font-weight: normal;
+  margin: 0;
 }
 
 .description-text {
-  font-size: 1.5rem;
-  margin-bottom: 0.5rem;
-  font-family: 'krub';
-
+  font-size: clamp(1rem, 1.5vw, 1.5rem);
+  line-height: 1.6;
+  margin-bottom: clamp(1rem, 2vw, 1.5rem);
+  font-family: 'Krub';
 }
 
 .activity-carousel {
   display: flex;
   flex-direction: row;
-  gap: 30px;
+  gap: clamp(15px, 3vw, 30px);
   overflow-x: auto; 
   padding-bottom: 20px;
-  margin-top: 20px;
+  margin-top: clamp(1rem, 2vw, 1.5rem);
 }
 
 .activity-card {
-  width: 350px;   
-  height: 250px; 
-  padding: 15px;
+  min-width: clamp(250px, 30vw, 350px);
+  height: clamp(200px, 25vh, 250px);
+  padding: clamp(12px, 1.5vw, 15px);
 
   display: flex;
   flex-direction: column;
@@ -103,74 +112,105 @@
   -webkit-backdrop-filter: blur(20px) saturate(180%); 
   
   border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 28px;
+  border-radius: clamp(16px, 2vw, 28px);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-
-
-}
-
-.trip-info-box {
-  display: flex;
-  flex-direction: row;
-  gap: 40px;
-  font-family: 'Krub';
-}
-
-.trip-info-item {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-.trip-info-title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-right: 0.5rem;
-}
-
-.trip-info-value {
-  font-size: 1.5rem;
-  font-weight: normal;
-
 }
 
 .activity-title {
   margin-top: 10px;
   font-family: 'Krub';
-}
-
-.activity-description-list {
-  padding-left: 1rem;
-  margin: 0.5rem 0;
-  list-style-type: disc; 
-  margin: 0;          
-  padding-left: 1rem;
-  font-family: 'Krub';
-}
-
-.activity-budget {
-  margin-top: auto; 
-  font-weight: bold;
-  font-family: 'Krub';
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
 }
 
 .activity-card h3 {
   margin: 0;
   margin-bottom: 0.5rem; 
   font-family: 'Krub';
+  font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+}
+
+.activity-description-list {
+  list-style-type: disc; 
+  margin: 0.5rem 0;
+  padding-left: 1.2rem;
+  font-family: 'Krub';
+  font-size: clamp(0.875rem, 1.2vw, 1rem);
+}
+
+.activity-budget {
+  margin-top: auto; 
+  font-weight: bold;
+  font-family: 'Krub';
+  font-size: clamp(0.875rem, 1.2vw, 1rem);
 }
 
 .generate-button {
-  margin-top: 2rem;
-  padding: 0.75rem 1.5rem;
+  margin-top: clamp(1.5rem, 3vw, 2rem);
+  padding: clamp(0.6rem, 1.5vw, 0.75rem) clamp(1rem, 2vw, 1.5rem);
   border-radius: 10px;
   border: none;
   background: #4caf50;
   color: white;
   font-weight: bold;
+  font-size: clamp(0.875rem, 1.5vw, 1rem);
   cursor: pointer;
   transition: background-color 0.4s ease;
+  width: 100%;
+  max-width: 400px;
+  align-self: center;
 }
 
 .generate-button:hover {
   background: #2d7e31;
+}
+
+.generate-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 1024px) {
+  .glassPanel {
+    padding: 30px;
+    width: calc(90vw - 4rem);
+  }
+
+  .trip-info-box {
+    gap: 20px;
+  }
+
+  .activity-card {
+    min-width: 280px;
+  }
+}
+
+@media (max-width: 768px) {
+  .glassPanel {
+    height: 85vh;
+    padding: 20px;
+    width: calc(95vw - 3rem);
+  }
+
+  .trip-info-box {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .trip-info-item {
+    width: 100%;
+  }
+
+  .activity-carousel {
+    gap: 15px;
+  }
+
+  .activity-card {
+    min-width: 240px;
+    height: auto;
+    min-height: 180px;
+  }
+
+  .generate-button {
+    max-width: 100%;
+  }
 }

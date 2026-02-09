@@ -76,7 +76,7 @@ prompt = PromptTemplate(
     and interests/hobbies: {interests}.
 
     Additionally, the user is travelling from: {home_location}. Thus, when generating the travel plan, ensure that the total estimated cost of the trip including transportation, accommodation, 
-    and activities does not exceed the user budget of: {budget} CAD. You must take into account how much it costs to travel from {home_location} to your recommended destination. This needs to be factored into the total estimated cost of the trip, and you should adjust your destination recommendation accordingly to ensure that the total cost of the trip is within the user's budget.
+    and activities does not exceed the user budget of: {budget} CAD. You must take into account how much it costs to travel from {home_location} to your recommended destination. This needs to be factored into the total estimated cost of the trip, and you should adjust your destination recommendation accordingly to ensure that the total cost of the trip is within the user's budget. However, feel free to do international trips, keeping in mind that it must cost within the budget.
 
     Additionally, use the following relevant information about potential travel destinations when creating a plan: {relevant_docs}. You do not need to use the information if it does not seem to align with the user's preferences, but you should use it as a reference when possible to create a more informed travel plan.
 
