@@ -9,6 +9,7 @@ function FormPage() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [budget, setBudget] = useState("");
+  const [home_location, setHomeLocation] = useState("");
   const [interests, setInterests] = useState("");
   const [culturalPreferences, setCulturalPreferences] = useState("");
   const [loading, setLoading] = useState(false);
@@ -25,6 +26,7 @@ function FormPage() {
       date_range: `${startDate} - ${endDate}`,
       interests: interests.split(",").map((i) => i.trim()),
       cultural_preferences: culturalPreferences,
+      home_location: home_location,
     };
 
     try {
@@ -40,7 +42,7 @@ function FormPage() {
 
       localStorage.setItem("travelPlan", JSON.stringify(travelPlan));
       localStorage.setItem("formData", JSON.stringify(requestBody));
-      
+
       navigate("/plan", { state: { travelPlan } });
     } catch (err) {
       console.error("Error fetching travel plan:", err);
@@ -99,6 +101,22 @@ function FormPage() {
             </div>
           </label>
 
+          <label>
+            Travelling from:
+            <input
+              type="text"
+              value={home_location}
+              onChange={(e) => setHomeLocation(e.target.value)}
+              required
+              style={{
+                padding: "0.5rem",
+                borderRadius: "8px",
+                border: "none",
+                width: "100%",
+              }}
+            />
+          </label>
+          
           <label>
             Budget (CAD):
             <input

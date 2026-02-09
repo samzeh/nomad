@@ -50,6 +50,7 @@ class TravelRequest(BaseModel):
     end_date: str
     interests: list[str]
     cultural_preferences: str
+    home_location: str
   
 class DayItinerary(BaseModel):
   day: int = Field(description="Day number of the trip")
@@ -74,14 +75,14 @@ prompt = PromptTemplate(
     Take into account the user's budget: {budget} CAD, trip length: {duration} days, travel date range: {date_range}, 
     and interests/hobbies: {interests}.
 
-    When generating the travel plan, ensure that the total estimated cost of the trip including transportation, accommodation, 
-    and activities does not exceed the user budget of: {budget} CAD. 
+    Additionally, the user is travelling from: {home_location}. Thus, when generating the travel plan, ensure that the total estimated cost of the trip including transportation, accommodation, 
+    and activities does not exceed the user budget of: {budget} CAD. You must take into account how much it costs to travel from {home_location} to your recommended destination. This needs to be factored into the total estimated cost of the trip, and you should adjust your destination recommendation accordingly to ensure that the total cost of the trip is within the user's budget.
 
     Additionally, use the following relevant information about potential travel destinations when creating a plan: {relevant_docs}. You do not need to use the information if it does not seem to align with the user's preferences, but you should use it as a reference when possible to create a more informed travel plan.
 
     {format_instructions}
     """,
-    input_variables=["budget", "duration", "date_range", "interests", "relevant_docs"],
+    input_variables=["budget", "duration", "date_range", "interests", "relevant_docs", "home_location"],
     partial_variables={"format_instructions": parser.get_format_instructions()}
 )
 
@@ -94,17 +95,7 @@ qa_chain = RetrievalQA.from_chain_type(
 
 @app.post("/travel-plan", response_model=TravelPlan)
 def generate_travel_plan(request: TravelRequest):
-    """
-    Example user input:
 
-    user_inputs = {
-      "budget": 2000,
-      "duration": 10,
-      "date_range": "June 1 - June 30",
-      "interests": ["hiking", "food", "culture"],
-      "cultural_preferences": "I prefer destinations with rich history and culture, and I enjoy trying local cuisines. I also like outdoor activities such as hiking and exploring nature." 
-    }
-    """
     user_inputs = request.dict()
 
     start_dt = datetime.fromisoformat(user_inputs["start_date"])
@@ -127,28 +118,10 @@ def generate_travel_plan(request: TravelRequest):
       duration=duration,
       date_range=f"{user_inputs['start_date']} - {user_inputs['end_date']}",
       interests=user_inputs["interests"],
-      relevant_docs=relevant_docs
+      relevant_docs=relevant_docs,
+      home_location=user_inputs["home_location"]
     ))
 
     travel_plan = parser.parse(response.content)
 
     return travel_plan
-
-
-
-
-
-
-# print("structured response:")
-# print(f"destination: {parsed_response.destination}")
-# print(f"reasoning: {parsed_response.reasoning}")
-# print(f"duration: {parsed_response.duration} days")
-# print(f"total_budget: {parsed_response.total_budget} CAD")
-# print(f"estimated_cost: {parsed_response.estimated_cost} CAD")
-# print("itinerary:")
-# for day in parsed_response.itinerary:
-#   print(f"  Day {day.day}:")
-#   print(f"    activities: {', '.join(day.activities)}")
-#   print(f"    daily_budget: {day.daily_budget} CAD")  
-
-
