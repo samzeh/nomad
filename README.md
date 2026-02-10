@@ -2,6 +2,8 @@
 
 Nomad is a full-stack travel planning app with a React frontend and a Python FastAPI backend. It generates personalized travel plans using AI and vector search.
 
+https://github.com/user-attachments/assets/0a397289-6c1b-4af6-8f7c-f3a64e51d418
+
 ---
 
 ## Project Structure
